@@ -216,7 +216,13 @@ var myApp = (function($) {
   var initialize = function() {
     var todos = new Todos();
     todos.fetch({
-      async: false
+      async: false,
+      success : function(collection){
+        console.log("fetch complete");
+      },
+      error : function(error) {
+        alert("Error Loading - Did you set your public key?");
+      }
     });
 
     var app_router = new AppRouter({
