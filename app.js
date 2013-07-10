@@ -66,8 +66,7 @@ var myApp = (function($) {
     add: function(e) {
       e.preventDefault();
       var item = $('#addForm').serializeObject(),
-        collection = this.collection,
-        router = this.router;
+          self = this;
 
       // Create a new instance of the todo model and populate it
       // with your form data.
@@ -78,14 +77,14 @@ var myApp = (function($) {
         success: function(model, result, options) {
 
           // Add new item to your collection
-          collection.add(model);
+          self.collection.add(model);
 
           // Send a change event to our collection so the
           // list of todos is refreshed on our homepage.
-          collection.trigger('change');
+          self.collection.trigger('change');
 
           // Return back to the home page
-          router.navigate('#', {
+          self.router.navigate('#', {
             trigger: true,
             replace: false
           });
@@ -118,14 +117,12 @@ var myApp = (function($) {
       e.preventDefault();
 
       var item = $('#updateForm').serializeObject(),
-        collection = this.collection,
-        router = this.router;
-      console.log(item);
-      console.log(this.model);
+          self = this;
+
       this.model.save(item, {
         success: function(model, result, options) {
           // Return back to the home page
-          router.navigate('#', {
+          self.router.navigate('#', {
             trigger: true,
             replace: false
           });
@@ -135,13 +132,11 @@ var myApp = (function($) {
 
     destroy: function(e) {
       e.preventDefault();
-
-      var collection = this.collection,
-        router = this.router;
+      var self = this;
 
       this.model.destroy({
         success: function(model, result, options) {
-          router.navigate('#', {
+          self.router.navigate('#', {
             trigger: true,
             replace: false
           });
